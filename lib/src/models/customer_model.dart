@@ -1,34 +1,37 @@
 import 'dart:convert';
 
-KorapayCustomerModel korapayCustomerModelFromJson(String str) => KorapayCustomerModel.fromJson(json.decode(str));
+KorapayCustomer korapayCustomerFromJson(String str) =>
+    KorapayCustomer.fromJson(json.decode(str));
 
-String korapayCustomerModelToJson(KorapayCustomerModel data) => json.encode(data.toJson());
+String korapayCustomerToJson(KorapayCustomer data) =>
+    json.encode(data.toJson());
 
-class KorapayCustomerModel {
-    String? name;
-    String? email;
+class KorapayCustomer {
+  String? name;
+  String? email;
 
-    KorapayCustomerModel({
-        this.name,
-        this.email,
-    });
+  KorapayCustomer({
+    this.name,
+    this.email,
+  });
 
-    KorapayCustomerModel copyWith({
-        String? name,
-        String? email,
-    }) => 
-        KorapayCustomerModel(
-            name: name ?? this.name,
-            email: email ?? this.email,
-        );
+  KorapayCustomer copyWith({
+    String? name,
+    String? email,
+  }) =>
+      KorapayCustomer(
+        name: name ?? this.name,
+        email: email ?? this.email,
+      );
 
-    factory KorapayCustomerModel.fromJson(Map<String, dynamic> json) => KorapayCustomerModel(
+  factory KorapayCustomer.fromJson(Map<String, dynamic> json) =>
+      KorapayCustomer(
         name: json["name"],
         email: json["email"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "name": name,
         "email": email,
-    };
+      };
 }

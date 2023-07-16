@@ -1,26 +1,70 @@
+import 'package:flutter/material.dart';
+import 'package:mytest_package/mytest_package.dart';
+import 'package:mytest_package/src/korapay/encrypt_charge_data.dart';
+import 'package:mytest_package/src/models/charge_data_model.dart';
 
+// String kEencryptionKey =
+//     "P9EqWkDGApD2FX3jiEUqdXq32zMj6Urp";
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+enum Authorization { pin, otp }
+
+String? kEencryptionKey;
+KorapayChargeData? chargeData;
 
 class Korapay {
-  String generateChargeData({
+  initialize({
+    required Authorization authorization,
+    required String encryptionKey,
     required String transactionRef,
-    required String cardName,
+    String cardName = "User card",
     required String cardNumber,
     required String cvv,
     required String expiryMonth,
     required String expiryYear,
+    String currency = "NGN",
+    String? redirectUrl,
     String? pin,
     required int amount,
-    required String name,
-    required String email,
-    required String username,
-    required String datetime,
+    String name = "None",
+    String email = "None",
+    required String metadata,
   }) {
-    return '';
+    if (encryptionKey == '' || encryptionKey.length < 32) {
+      throw ("Invalid encryption key");
+    } else {
+      KorapayChargeData chargeData = KorapayChargeData(
+        reference: transactionRef,
+        card: KorapayCard(
+          name: cardName,
+          number: cardNumber,
+          cvv: cvv,
+          expiryMonth: expiryMonth,
+          expiryYear: expiryYear,
+        ),
+        amount: amount,
+        currency: currency,
+        redirectUrl: redirectUrl,
+        customer: KorapayCustomer(
+          name: name,
+          email: email,
+        ),
+        metadata: KorapayMetadata(
+          metadata: metadata,
+          datetime: DateTime.now().toString(),
+        ),
+      );
+
+      final encryptedChargeData = generateChargeData(chargeData);
+      debugPrint("Encrypted Charge Data: $encryptedChargeData");
+    }
+  }
+
+  String generateChargeData(KorapayChargeData chargeData) {
+    String encryptChargeDataResponse = encryptChargeData(
+      kEencryptionKey!,
+      chargeData.toJson().toString(),
+    );
+
+    return encryptChargeDataResponse;
   }
 }

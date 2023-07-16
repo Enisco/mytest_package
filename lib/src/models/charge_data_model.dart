@@ -1,46 +1,42 @@
-// To parse this JSON data, do
-//
-//     final korapayChargeDataModel = korapayChargeDataModelFromJson(jsonString);
-
 import 'dart:convert';
 
 import 'package:mytest_package/mytest_package.dart';
 
-KorapayChargeDataModel korapayChargeDataModelFromJson(String str) =>
-    KorapayChargeDataModel.fromJson(json.decode(str));
+KorapayChargeData korapayChargeDataFromJson(String str) =>
+    KorapayChargeData.fromJson(json.decode(str));
 
-String korapayChargeDataModelToJson(KorapayChargeDataModel data) =>
+String korapayChargeDataToJson(KorapayChargeData data) =>
     json.encode(data.toJson());
 
-class KorapayChargeDataModel {
+class KorapayChargeData {
   String? reference;
-  KorapayCardModel? card;
+  KorapayCard? card;
   int? amount;
   String? currency;
   String? redirectUrl;
-  KorapayCustomerModel? customer;
-  KorapayMetadataModel? metadata;
+  KorapayCustomer? customer;
+  KorapayMetadata? metadata;
 
-  KorapayChargeDataModel({
-    this.reference,
-    this.card,
-    this.amount,
+  KorapayChargeData({
+    required this.reference,
+    required this.card,
+    required this.amount,
     this.currency,
     this.redirectUrl,
-    this.customer,
+    required this.customer,
     this.metadata,
   });
 
-  KorapayChargeDataModel copyWith({
+  KorapayChargeData copyWith({
     String? reference,
-    KorapayCardModel? card,
+    KorapayCard? card,
     int? amount,
     String? currency,
     String? redirectUrl,
-    KorapayCustomerModel? customer,
-    KorapayMetadataModel? metadata,
+    KorapayCustomer? customer,
+    KorapayMetadata? metadata,
   }) =>
-      KorapayChargeDataModel(
+      KorapayChargeData(
         reference: reference ?? this.reference,
         card: card ?? this.card,
         amount: amount ?? this.amount,
@@ -50,21 +46,19 @@ class KorapayChargeDataModel {
         metadata: metadata ?? this.metadata,
       );
 
-  factory KorapayChargeDataModel.fromJson(Map<String, dynamic> json) =>
-      KorapayChargeDataModel(
+  factory KorapayChargeData.fromJson(Map<String, dynamic> json) =>
+      KorapayChargeData(
         reference: json["reference"],
-        card: json["card"] == null
-            ? null
-            : KorapayCardModel.fromJson(json["card"]),
+        card: json["card"] == null ? null : KorapayCard.fromJson(json["card"]),
         amount: json["amount"],
         currency: json["currency"],
         redirectUrl: json["redirect_url"],
         customer: json["customer"] == null
             ? null
-            : KorapayCustomerModel.fromJson(json["customer"]),
+            : KorapayCustomer.fromJson(json["customer"]),
         metadata: json["metadata"] == null
             ? null
-            : KorapayMetadataModel.fromJson(json["metadata"]),
+            : KorapayMetadata.fromJson(json["metadata"]),
       );
 
   Map<String, dynamic> toJson() => {

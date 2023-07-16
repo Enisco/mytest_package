@@ -1,12 +1,11 @@
 import 'dart:convert';
 
-KorapayCardModel korapayCardModelFromJson(String str) =>
-    KorapayCardModel.fromJson(json.decode(str));
+KorapayCard korapayCardFromJson(String str) =>
+    KorapayCard.fromJson(json.decode(str));
 
-String korapayCardModelToJson(KorapayCardModel data) =>
-    json.encode(data.toJson());
+String korapayCardToJson(KorapayCard data) => json.encode(data.toJson());
 
-class KorapayCardModel {
+class KorapayCard {
   String? name;
   String? number;
   String? cvv;
@@ -14,16 +13,16 @@ class KorapayCardModel {
   String? expiryYear;
   String? pin;
 
-  KorapayCardModel({
+  KorapayCard({
     this.name,
-    this.number,
-    this.cvv,
-    this.expiryMonth,
-    this.expiryYear,
+    required this.number,
+    required this.cvv,
+    required this.expiryMonth,
+    required this.expiryYear,
     this.pin,
   });
 
-  KorapayCardModel copyWith({
+  KorapayCard copyWith({
     String? name,
     String? number,
     String? cvv,
@@ -31,7 +30,7 @@ class KorapayCardModel {
     String? expiryYear,
     String? pin,
   }) =>
-      KorapayCardModel(
+      KorapayCard(
         name: name ?? this.name,
         number: number ?? this.number,
         cvv: cvv ?? this.cvv,
@@ -40,8 +39,7 @@ class KorapayCardModel {
         pin: pin ?? this.pin,
       );
 
-  factory KorapayCardModel.fromJson(Map<String, dynamic> json) =>
-      KorapayCardModel(
+  factory KorapayCard.fromJson(Map<String, dynamic> json) => KorapayCard(
         name: json["name"],
         number: json["number"],
         cvv: json["cvv"],

@@ -1,38 +1,37 @@
-// To parse this JSON data, do
-//
-//     final korapayMetadataModel = korapayMetadataModelFromJson(jsonString);
-
 import 'dart:convert';
 
-KorapayMetadataModel korapayMetadataModelFromJson(String str) => KorapayMetadataModel.fromJson(json.decode(str));
+KorapayMetadata korapayMetadataFromJson(String str) =>
+    KorapayMetadata.fromJson(json.decode(str));
 
-String korapayMetadataModelToJson(KorapayMetadataModel data) => json.encode(data.toJson());
+String korapayMetadataToJson(KorapayMetadata data) =>
+    json.encode(data.toJson());
 
-class KorapayMetadataModel {
-    String? username;
-    int? datetime;
+class KorapayMetadata {
+  String? metadata;
+  String? datetime;
 
-    KorapayMetadataModel({
-        this.username,
-        this.datetime,
-    });
+  KorapayMetadata({
+    this.metadata,
+    this.datetime,
+  });
 
-    KorapayMetadataModel copyWith({
-        String? username,
-        int? datetime,
-    }) => 
-        KorapayMetadataModel(
-            username: username ?? this.username,
-            datetime: datetime ?? this.datetime,
-        );
+  KorapayMetadata copyWith({
+    String? metadata,
+    String? datetime,
+  }) =>
+      KorapayMetadata(
+        metadata: metadata ?? this.metadata,
+        datetime: datetime ?? this.datetime,
+      );
 
-    factory KorapayMetadataModel.fromJson(Map<String, dynamic> json) => KorapayMetadataModel(
-        username: json["username"],
+  factory KorapayMetadata.fromJson(Map<String, dynamic> json) =>
+      KorapayMetadata(
+        metadata: json["metadata"],
         datetime: json["datetime"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
-        "username": username,
+  Map<String, dynamic> toJson() => {
+        "metadata": metadata,
         "datetime": datetime,
-    };
+      };
 }
