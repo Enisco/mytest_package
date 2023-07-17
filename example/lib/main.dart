@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'KoraPay',
+      title: 'Korapay',
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
@@ -47,19 +47,22 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Korapay().initialize(
-            authorization: Authorization.otp,
-            encryptionKey: "encryptionKey",
+          String res = Korapay().initialize(
+            authorization: Authorization.pin,
+            encryptionKey: "P9EqWkDGApD2FX3jiEUqdXq32zMj6Urp",
             transactionRef: "transactionRef",
             cardNumber: "cardNumber",
             cvv: "cvv",
+            pin: 1234,
             expiryMonth: "expiryMonth",
             expiryYear: "expiryYear",
             amount: 679,
             metadata: "metadata",
           );
+          print("Result: $res");
+          Korapay().charge();
         },
-        tooltip: 'Increment',
+        tooltip: 'Charge',
         child: const Icon(Icons.add),
       ),
     );
