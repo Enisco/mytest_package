@@ -1,24 +1,25 @@
 import 'dart:convert';
 
-KorapayCard korapayCardFromJson(String str) =>
+KorapayCard korapayCardWithPinFromJson(String str) =>
     KorapayCard.fromJson(json.decode(str));
 
-String korapayCardToJson(KorapayCard data) => json.encode(data.toJson());
+String korapayCardWithPinToJson(KorapayCard data) =>
+    json.encode(data.toJson());
 
 class KorapayCard {
-  String? name;
-  String? number;
-  String? cvv;
-  String? expiryMonth;
-  String? expiryYear;
-  String? pin;
+  final String? name;
+  final String? number;
+  final String? cvv;
+  final String? expiryMonth;
+  final String? expiryYear;
+  final String? pin;
 
   KorapayCard({
     this.name,
-    required this.number,
-    required this.cvv,
-    required this.expiryMonth,
-    required this.expiryYear,
+    this.number,
+    this.cvv,
+    this.expiryMonth,
+    this.expiryYear,
     this.pin,
   });
 
@@ -39,7 +40,8 @@ class KorapayCard {
         pin: pin ?? this.pin,
       );
 
-  factory KorapayCard.fromJson(Map<String, dynamic> json) => KorapayCard(
+  factory KorapayCard.fromJson(Map<String, dynamic> json) =>
+      KorapayCard(
         name: json["name"],
         number: json["number"],
         cvv: json["cvv"],

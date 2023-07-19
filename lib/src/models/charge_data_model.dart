@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:mytest_package/mytest_package.dart';
 import 'package:mytest_package/src/models/card_model.dart';
 import 'package:mytest_package/src/models/customer_model.dart';
 import 'package:mytest_package/src/models/metadata_model.dart';
