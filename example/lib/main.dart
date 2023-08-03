@@ -33,15 +33,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    print("Rebuild");
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             Text(
               'You have pushed the button this many times:',
             ),
@@ -49,24 +48,25 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final res = Korapay().initialize(
+        onPressed: () async {
+          final res = await Korapay().initialize(
             secretKey: "sk_test_od3bvdEUj1kMTQM4KAq1MhBrqzPMmPFEZWZgUYq7",
             encryptionKey: "P9EqWkDGApD2FX3jiEUqdXq32zMj6Urp",
-            authorization: Authorization.otp,
-            transactionRef: "transactionRef-${DateTime.now().toString()}",
-            cardNumber: "5442056106072595", //Otp card
-            // cardNumber: "5188513618552975", //Pin card
+            transactionRef:
+                "transactionRef-${DateTime.now().toIso8601String()}",
+            cardNumber: "5442056106072595", // Otp card
+            // cardNumber: "5188513618552975", // Pin card
+            // cardNumber: "4084127883172787", // No auth
             cvv: "123",
             expiryMonth: "09",
             expiryYear: "30",
-            pin: '1234',
-            amount: 200,
+            // pin: '1234',
+            amount: 350,
             email: "kpay@gmail.com",
             metadata: "enisco_trial",
             redirectUrl: "https://ktest.com",
           );
-          print("Result: ${res.toString()}");
+          print(">>>>>>>>>>>>>>>>>>>>>>Result: ${res.toString()}");
         },
         tooltip: 'Charge',
         child: const Icon(Icons.add),
